@@ -4,8 +4,8 @@ import java.awt.event.*;
 
 public class window extends JFrame 
 {
-	private ImageIcon picture = new ImageIcon("beat.gif");
-	private ImageIcon beatFruit = new ImageIcon("beatFruit.jpg");
+	private ImageIcon picture = new ImageIcon("CenaTitle.gif");
+	private ImageIcon beatFruit = new ImageIcon("JohnCena.gif");
 	private JLabel displayPicJL, beatFruitJL;
 	private JButton start, instruction;
 	private InsHandler insHandler;
@@ -14,7 +14,7 @@ public class window extends JFrame
 	
 	public window()
 	{
-		setTitle("Catch the Beat");
+		setTitle("John Cena's Fruit Catching Original Visual Novel Extraveganza Adventure");
 		setSize(1280,720);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
@@ -39,7 +39,7 @@ public class window extends JFrame
 		frame = new JFrame("Frame");
 		frame.setLayout(new BorderLayout());
 		frame.setSize(new Dimension(160, 120));
-		frame.setLocation(510, 260);
+		frame.setLocation(550, 260);
 		frame.add(start, BorderLayout.NORTH);
 		frame.add(instruction, BorderLayout.SOUTH);
 		frame.setVisible(true);
@@ -51,7 +51,7 @@ public class window extends JFrame
 		public void actionPerformed(ActionEvent e)
 		{
 			beatFruitJL = new JLabel(beatFruit);
-			JOptionPane.showMessageDialog(null,"Use the left and right arrows to move the character and try to catch all the beats!", "Instructions", JOptionPane.INFORMATION_MESSAGE, beatFruit);
+			JOptionPane.showMessageDialog(null,"You have to find John Cena", "Instructions", JOptionPane.INFORMATION_MESSAGE, beatFruit);
 		}
 	}
 	private class StaHandler implements ActionListener

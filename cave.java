@@ -17,6 +17,8 @@ public class cave extends JFrame
 	private ReHandler reHandler;
 	private NextHandler nextHandler;
 	private DeathHandler deathHandler;
+	private AudioInputStream audioInputStream;
+	private Clip clip;
 	
 	public cave()
 	{
@@ -48,14 +50,35 @@ public class cave extends JFrame
 		button.add(death);
 		death.addActionListener(deathHandler);
 		
-		JOptionPane.showMessageDialog(null, "<html><body><center><p style='width: 950px;'>" + "You awake in a cave, you don’t know who you are or how long you've been there you see that you are near the exit, or you can go deeper into the cave" + "</body></html>", null, JOptionPane.INFORMATION_MESSAGE);
+		try{
+			audioInputStream = AudioSystem.getAudioInputStream(new File("C:\\Users\\48001131\\Documents\\SCHOOL\\Comp Prog\\Catch The Beat\\Audio\\2. CAVE1.wav").getAbsoluteFile());
+			clip = AudioSystem.getClip();
+			clip.open(audioInputStream);
+			clip.start(); 
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		
+		JOptionPane.showMessageDialog(null, "<html><body><center><p style='width: 950px;'>" + "You awake in a cave, you don’t know who you are or how long you've been there. You see that you are near the exit, or you can go deeper into the cave" + "</body></html>", null, JOptionPane.INFORMATION_MESSAGE);
+		clip.stop();
 	}
 	
 	private class ReHandler implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			
+			try{
+				audioInputStream = AudioSystem.getAudioInputStream(new File("C:\\Users\\48001131\\Documents\\SCHOOL\\Comp Prog\\Catch The Beat\\Audio\\2. CAVE1.wav").getAbsoluteFile());
+				clip = AudioSystem.getClip();
+				clip.open(audioInputStream);
+				clip.start(); 
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+			}
 		}
 	}
 	
@@ -63,7 +86,10 @@ public class cave extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			
+			clip.stop();
+			frame.dispose();
+			button.dispose();
+			outside_cave outside_cave = new outside_cave();
 		}
 	}
 	
@@ -71,11 +97,22 @@ public class cave extends JFrame
 	{
 		public void actionPerformed(ActionEvent e)
 		{
+			clip.stop();
 			frame.remove(label);
 			deathLabel = new JLabel(death);
 			frame.add(deathLabel);
 			frame.revalidate();
 			button.setVisible(false);
+			try{
+				audioInputStream = AudioSystem.getAudioInputStream(new File("C:\\Users\\48001131\\Documents\\SCHOOL\\Comp Prog\\Catch The Beat\\Audio\\3. CAVE DEATH.wav").getAbsoluteFile());
+				clip = AudioSystem.getClip();
+				clip.open(audioInputStream);
+				clip.start(); 
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+			}
 			JOptionPane.showMessageDialog(null, "<html><body><center><p style='width: 950px;'>" + "You decide to go deeper into the cave and inside you see a creature that strikes deep into your subconscious primal fears, a beast too horrifying for words. You perish at it’s feet." + "</body></html>", null, JOptionPane.INFORMATION_MESSAGE);
 		}
 	}

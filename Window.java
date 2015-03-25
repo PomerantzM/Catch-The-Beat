@@ -1,6 +1,10 @@
 import javax.swing.*;
 import java.awt.*;
 import java.awt.event.*;
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import java.io.*;
 
 public class window extends JFrame 
 {
@@ -11,11 +15,14 @@ public class window extends JFrame
 	private InsHandler insHandler;
 	private StaHandler staHandler;
 	private JFrame frame;
+	private AudioInputStream audioInputStream;
+	private Clip clip;
 	
 	public window()
 	{
 		setTitle("John Cena's Fruit Catching Original Visual Novel Extraveganza Adventure");
 		setSize(1280,720);
+		setLocation(45, 0);
 		setVisible(true);
 		setDefaultCloseOperation(EXIT_ON_CLOSE);
 		
@@ -39,11 +46,22 @@ public class window extends JFrame
 		frame = new JFrame("Frame");
 		frame.setLayout(new BorderLayout());
 		frame.setSize(new Dimension(160, 120));
-		frame.setLocation(550, 260);
+		frame.setLocation(595, 260);
 		frame.add(start, BorderLayout.NORTH);
 		frame.add(instruction, BorderLayout.SOUTH);
 		frame.setVisible(true);
 		frame.setDefaultCloseOperation(HIDE_ON_CLOSE);
+		
+		try{
+			audioInputStream = AudioSystem.getAudioInputStream(new File("C:\\Users\\48001131\\Documents\\SCHOOL\\Comp Prog\\Catch The Beat\\Audio\\AND HIS NAME IS JOHN CENAscreen.wav").getAbsoluteFile());
+			clip = AudioSystem.getClip();
+			clip.open(audioInputStream);
+			clip.start(); 
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
 	}
 	
 	private class InsHandler implements ActionListener
@@ -51,17 +69,20 @@ public class window extends JFrame
 		public void actionPerformed(ActionEvent e)
 		{
 			beatFruitJL = new JLabel(beatFruit);
-			JOptionPane.showMessageDialog(null,"You have to find John Cena", "Instructions", JOptionPane.INFORMATION_MESSAGE, beatFruit);
+			JOptionPane.showMessageDialog(null,"You have to find John Cena. After you click Start select an option from the bottom of the screen.", "Instructions", JOptionPane.INFORMATION_MESSAGE, beatFruit);
 		}
 	}
 	private class StaHandler implements ActionListener
 	{
 		public void actionPerformed(ActionEvent e)
 		{
-			game game = new game();
+			clip.stop();
 			setVisible(false);
 			dispose();
 			frame.setVisible(false);
+			frame.dispose();
+			game game = new game();
+			clip.stop();
 		}
 	}
 

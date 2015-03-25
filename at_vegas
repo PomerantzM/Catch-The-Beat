@@ -1,0 +1,124 @@
+import javax.swing.*;
+import java.awt.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
+import javax.sound.sampled.AudioInputStream;
+import javax.sound.sampled.AudioSystem;
+import javax.sound.sampled.Clip;
+import java.io.*;
+
+public class at_vegas extends JFrame
+{
+	private ImageIcon pic = new ImageIcon("cenavegas.jpg");
+	private ImageIcon death = new ImageIcon("john cena grave.png");
+	private JFrame frame, button;
+	private JLabel label, deathLabel;
+	private ReHandler reHandler;
+	private NextHandler nextHandler;
+	private DeathHandler deathHandler;
+	private AudioInputStream audioInputStream;
+	private Clip clip;
+	
+	public at_vegas()
+	{
+		frame = new JFrame("John Cena's Fruit Catching Original Visual Novel Extraveganza Adventure");
+		frame.setTitle("John Cena's Fruit Catching Original Visual Novel Extraveganza Adventure");
+		label = new JLabel(pic);
+		frame.add(label);
+		frame.setSize(1280, 720);
+		frame.setLocation(45, 0);
+		frame.setVisible(true);
+		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		
+		reHandler = new ReHandler();
+		nextHandler = new NextHandler();
+		deathHandler = new DeathHandler(); 
+		
+		button = new JFrame("Buttons");
+		button.setVisible(true);
+		button.setLayout(new GridLayout(1,3));
+		button.setSize(1280, 70);
+		button.setLocation(45, 650);
+		JButton replay = new JButton("Replay");
+		button.add(replay);
+		replay.addActionListener(reHandler);
+		JButton next = new JButton("Go downtown");
+		button.add(next);
+		next.addActionListener(nextHandler);
+		JButton death = new JButton("Go north");
+		button.add(death);
+		death.addActionListener(deathHandler);
+		
+		try{
+			audioInputStream = AudioSystem.getAudioInputStream(new File("C:\\Users\\48001131\\Documents\\SCHOOL\\Comp Prog\\Catch The Beat\\Audio\\6 AT VEGAS.wav").getAbsoluteFile());
+			clip = AudioSystem.getClip();
+			clip.open(audioInputStream);
+			clip.start(); 
+		}
+		catch(Exception ex)
+		{
+			ex.printStackTrace();
+		}
+		
+		JOptionPane.showMessageDialog(null, "<html><body><center><p style='width: 950px;'>" + "You walk for what seems to be a few hours and arrive at Las Vegas You could travel down to the Vegas Strip and see downtown, or you could travel to the North side of Las Vegas, which is not known for being a very safe place to be." + "</body></html>", null, JOptionPane.INFORMATION_MESSAGE);
+		clip.stop();
+	}
+	
+	private class ReHandler implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			try{
+				audioInputStream = AudioSystem.getAudioInputStream(new File("C:\\Users\\48001131\\Documents\\SCHOOL\\Comp Prog\\Catch The Beat\\Audio\\6 AT VEGAS.wav").getAbsoluteFile());
+				clip = AudioSystem.getClip();
+				clip.open(audioInputStream);
+				clip.start(); 
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+			}
+		}
+	}
+	
+	private class NextHandler implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			clip.stop();
+			frame.dispose();
+			button.dispose();
+			at_strip at_strip = new at_strip();
+		}
+	}
+	
+	private class DeathHandler implements ActionListener
+	{
+		public void actionPerformed(ActionEvent e)
+		{
+			clip.stop();
+			frame.remove(label);
+			deathLabel = new JLabel(death);
+			frame.add(deathLabel);
+			frame.revalidate();
+			button.setVisible(false);
+			try{
+				audioInputStream = AudioSystem.getAudioInputStream(new File("C:\\Users\\48001131\\Documents\\SCHOOL\\Comp Prog\\Catch The Beat\\Audio\\7 AT VEGAS DEATH.wav").getAbsoluteFile());
+				clip = AudioSystem.getClip();
+				clip.open(audioInputStream);
+				clip.start(); 
+			}
+			catch(Exception ex)
+			{
+				ex.printStackTrace();
+			}
+			JOptionPane.showMessageDialog(null, "<html><body><center><p style='width: 950px;'>" + "You travel to North Vegas, all around you are ruined buildings and broken down cars. you can see a man motioning to you from an alley. As you walk in he informs you that you’ve walked into a trap. You never leave the alley." + "</body></html>", null, JOptionPane.INFORMATION_MESSAGE);
+		}
+	}
+	
+	public static void main(String[] args)
+	{
+		at_vegas at_vegas = new at_vegas();
+	}
+}
